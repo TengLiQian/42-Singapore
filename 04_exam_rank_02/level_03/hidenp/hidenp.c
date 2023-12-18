@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:33:24 by lteng             #+#    #+#             */
-/*   Updated: 2023/12/18 15:50:31 by lteng            ###   ########.fr       */
+/*   Updated: 2023/12/18 16:57:05 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char *argv[])
 		{
 			if (ft_char_found(argv[1][i], argv[2], pos) >= pos)
 			{
-				pos = (ft_char_found(argv[1][i], argv[2], pos));
+				pos = (ft_char_found(argv[1][i], argv[2], pos) + 1);
 				count += 1;
 			}
 			i += 1;
