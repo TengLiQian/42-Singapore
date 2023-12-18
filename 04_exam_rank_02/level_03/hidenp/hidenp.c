@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:33:24 by lteng             #+#    #+#             */
-/*   Updated: 2023/12/18 15:47:53 by lteng            ###   ########.fr       */
+/*   Updated: 2023/12/18 15:50:31 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_char_found(char a, char *str, int pos)
 	while (str[pos] != '\0')
 	{
 		if (a == str[pos])
-			return (1);
+			return (pos);
 		pos++;
 	}
 	return (0);
@@ -58,8 +58,11 @@ int	main(int argc, char *argv[])
 	{
 		while (argv[1][i] != '\0')
 		{
-			if (ft_char_found(argv[1][i], argv[2], pos) == 1)
+			if (ft_char_found(argv[1][i], argv[2], pos) >= pos)
+			{
+				pos = (ft_char_found(argv[1][i], argv[2], pos));
 				count += 1;
+			}
 			i += 1;
 		}
 		if (count == ft_strlen(argv[1]))
