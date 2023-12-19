@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 17:06:33 by lteng             #+#    #+#             */
-/*   Updated: 2023/12/18 17:17:47 by lteng            ###   ########.fr       */
+/*   Updated: 2023/12/19 14:51:04 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ unsigned int	lcm(unsigned int a, unsigned int b)
 	}
 	return (0);
 }
-/*
+
 int	main(void)
 {
 	printf("%u\n", lcm(24, 48));
 	return (0);
-}*/
+}
