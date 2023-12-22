@@ -6,15 +6,15 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 15:20:50 by lteng             #+#    #+#             */
-/*   Updated: 2023/12/22 15:49:38 by lteng            ###   ########.fr       */
+/*   Updated: 2023/12/22 15:50:25 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-void char_convert(char a, char b)
+void	char_convert(char a, char b)
 {
-	char new_char;
+	char	new_char;
 
 	if (a >= 'A' && a <= 'Z' && (b != ' ' && b != '\t' && b != '\0'))
 	{
