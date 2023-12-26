@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 16:41:31 by lteng             #+#    #+#             */
-/*   Updated: 2023/12/26 16:53:04 by lteng            ###   ########.fr       */
+/*   Updated: 2023/12/26 17:02:15 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	word_count(char *str)
 	i = 0;
 	while (str[i])
 	{
-		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 			i++;
 		if (str[i])
 		{
 			words++;
-			while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+			while (str[i] && str[i] != ' ' && str[i] != '\t')
 				i++;
 		}
 	}
@@ -45,7 +45,7 @@ int	char_count(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+		if (str[i] != ' ' && str[i] != '\t')
 			chars++;
 		i++;
 	}
@@ -65,14 +65,14 @@ char	**ft_split(char *str)
 	while (str[i])
 	{
 		k = 0;
-		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 			i++;
 		if (str[i])
 		{
 			tab[j] = malloc(sizeof(char) * char_count(str + i) + 1);
 			if (!tab[j])
 				return (NULL);
-			while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+			while (str[i] && str[i] != ' ' && str[i] != '\t')
 				tab[j][k++] = str[i++];
 			tab[j++][k] = '\0';
 		}
