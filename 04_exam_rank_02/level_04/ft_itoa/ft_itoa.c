@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 11:18:48 by lteng             #+#    #+#             */
-/*   Updated: 2023/12/26 11:47:01 by lteng            ###   ########.fr       */
+/*   Updated: 2023/12/26 11:48:12 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_itoa(int n)
 		result[0] = '-';
 	return (result);
 }
-
+/*
 int	main(void)
 {
 	char	*result;
@@ -66,4 +66,4 @@ int	main(void)
 	printf("%s", result);
 	free(result);
 	return (0);
-}
+}*/
