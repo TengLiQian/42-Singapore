@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 13:42:19 by lteng             #+#    #+#             */
-/*   Updated: 2023/12/26 16:40:24 by lteng            ###   ########.fr       */
+/*   Updated: 2023/12/26 16:51:25 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ int	word_count(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\0')
-			return (0);
-		else if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'
-			&& (str[i] == '\0' || str[i] == ' ' || str[i] == '\t'
-				|| str[i] == '\n'))
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+			i++;
+		if (str[i])
+		{
 			words++;
-		i++;
+			while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+				i++;
+		}
 	}
 	return (words);
 }
@@ -85,7 +86,7 @@ int	main(void)
 	char	**result;
 	int		i;
 
-	result = ft_split("Apple Orange Banana");
+	result = ft_split("Hello this is my World");
 	i = 0;
 	while (result[i])
 	{
