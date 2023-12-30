@@ -6,14 +6,15 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:11:27 by lteng             #+#    #+#             */
-/*   Updated: 2023/12/29 17:11:44 by lteng            ###   ########.fr       */
+/*   Updated: 2023/12/30 16:15:14 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-
+# include <stdlib.h>;
+# include <unistd.h>;
 
 
 
