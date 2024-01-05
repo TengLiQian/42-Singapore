@@ -6,11 +6,13 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:25:19 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/05 17:47:27 by lteng            ###   ########.fr       */
+/*   Updated: 2024/01/06 00:08:10 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+extern char	**environ;
 
 void	ft_error(char *str)
 {
@@ -56,8 +58,9 @@ int	child_process(int pipefd[], char *cmd1, char *file1)
 	char	*cmdpath;
 	char	**cmd;
 
-	cmdpath = ft_path(cmd1);
+	close(pipefd[0]);
 	cmd = ft_split(cmd1, ' ');
+	cmdpath = ft_path(cmd[0]);
 	fd = open(file1, O_RDONLY);
 	if (fd == -1)
 		ft_error("Error opening file child");
@@ -76,8 +79,9 @@ int	parent_process(int pipefd[], char *cmd2, char *file2)
 	char	*cmdpath;
 	char	**cmd;
 
-	cmdpath = ft_path(cmd2);
+	close(pipefd[1]);
 	cmd = ft_split(cmd2, ' ');
+	cmdpath = ft_path(cmd[0]);
 	fd = open(file2, O_WRONLY | O_TRUNC | O_CREAT, 0777);
 	if (fd == -1)
 		ft_error("Error opening file parent");
@@ -103,14 +107,10 @@ int	main(int argc, char *argv[])
 	if (process_id == -1)
 		ft_error("Fork\n");
 	if (process_id == 0)
-	{
-		close(pipefd[0]);
 		child_process(pipefd, argv[2], argv[1]);
-	}
 	else
 	{
 		wait(NULL);
-		close(pipefd[1]);
 		parent_process(pipefd, argv[3], argv[4]);
 	}
 	return (0);
