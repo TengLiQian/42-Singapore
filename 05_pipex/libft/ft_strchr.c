@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 17:11:27 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/05 16:58:11 by lteng            ###   ########.fr       */
+/*   Created: 2023/09/07 21:27:36 by lteng             #+#    #+#             */
+/*   Updated: 2023/09/07 21:27:42 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+char	*ft_strchr(const char *s, int c)
+{
+	char	*ptr;
+	char	a; 
 
-// for free
-# include <stdlib.h>
-
-// for access, close, read, write, execve, exit, fork, pipe
-# include <unistd.h>
-
-// for open
-# include <fcntl.h>
-
-// for perror
-# include <stdio.h>
-
-// for waitpid
-# include <sys/wait.h>
-
-#endif
+	a = (char)c;
+	ptr = (char *)s;
+	while (*ptr != '\0')
+	{
+		if (*ptr == a)
+			return ((char *)ptr);
+		ptr++;
+	}
+	if (a == '\0')
+		return ((char *)ptr);
+	return (NULL);
+}

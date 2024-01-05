@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 17:11:27 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/05 16:58:11 by lteng            ###   ########.fr       */
+/*   Created: 2023/09/08 12:32:57 by lteng             #+#    #+#             */
+/*   Updated: 2023/09/08 12:32:58 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+int	ft_atoi(const char *nptr)
+{
+	int	i;
+	int	num;
+	int	sign;
 
-// for free
-# include <stdlib.h>
-
-// for access, close, read, write, execve, exit, fork, pipe
-# include <unistd.h>
-
-// for open
-# include <fcntl.h>
-
-// for perror
-# include <stdio.h>
-
-// for waitpid
-# include <sys/wait.h>
-
-#endif
+	i = 0;
+	num = 0;
+	sign = 1;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
+	{
+		if (nptr[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		num = (num * 10) + (nptr[i] - '0');
+		i++;
+	}
+	return (num * sign);
+}

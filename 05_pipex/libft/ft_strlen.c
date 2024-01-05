@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 17:11:27 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/05 16:58:11 by lteng            ###   ########.fr       */
+/*   Created: 2023/09/07 14:45:08 by lteng             #+#    #+#             */
+/*   Updated: 2023/09/07 14:45:38 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
 
-// for free
-# include <stdlib.h>
-
-// for access, close, read, write, execve, exit, fork, pipe
-# include <unistd.h>
-
-// for open
-# include <fcntl.h>
-
-// for perror
-# include <stdio.h>
-
-// for waitpid
-# include <sys/wait.h>
-
-#endif
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}

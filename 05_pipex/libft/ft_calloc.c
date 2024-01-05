@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 17:11:27 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/05 16:58:11 by lteng            ###   ########.fr       */
+/*   Created: 2023/09/08 14:35:48 by lteng             #+#    #+#             */
+/*   Updated: 2023/09/08 14:35:51 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+void	*ft_calloc(size_t number, size_t size)
+{
+	void	*ptr;
 
-// for free
-# include <stdlib.h>
-
-// for access, close, read, write, execve, exit, fork, pipe
-# include <unistd.h>
-
-// for open
-# include <fcntl.h>
-
-// for perror
-# include <stdio.h>
-
-// for waitpid
-# include <sys/wait.h>
-
-#endif
+	ptr = malloc (number * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, (number * size));
+	return (ptr);
+}

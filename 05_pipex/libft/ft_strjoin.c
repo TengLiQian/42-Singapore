@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 17:11:27 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/05 16:58:11 by lteng            ###   ########.fr       */
+/*   Created: 2023/09/09 11:06:15 by lteng             #+#    #+#             */
+/*   Updated: 2023/09/09 11:06:18 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-# include "./libft/libft.h"
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*ptr;
 
-// for free
-# include <stdlib.h>
-
-// for access, close, read, write, execve, exit, fork, pipe
-# include <unistd.h>
-
-// for open
-# include <fcntl.h>
-
-// for perror
-# include <stdio.h>
-
-// for waitpid
-# include <sys/wait.h>
-
-#endif
+	i = ft_strlen(s1) + ft_strlen(s2);
+	ptr = malloc(i + 1);
+	if (ptr == NULL)
+		return (NULL);
+	j = 0;
+	k = 0;
+	while (j < i && s1[j] != '\0')
+	{
+		ptr[j] = s1[j];
+		j++;
+	}
+	while (j < i && s2[k] != '\0')
+	{
+		ptr[j] = s2[k];
+		j++;
+		k++;
+	}
+	ptr[j] = '\0';
+	return (ptr);
+}
