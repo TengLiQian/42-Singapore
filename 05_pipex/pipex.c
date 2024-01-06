@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:25:19 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/05 17:47:27 by lteng            ###   ########.fr       */
+/*   Updated: 2024/01/06 11:56:58 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,42 +20,16 @@ void	ft_error(char *str)
 
 char	*ft_path(char *cmd)
 {
-	char	**path;
-	char	*testpath;
-	int		i;
 
-	path = NULL;
-	i = 0;
-	if (environ == NULL)
-		return (NULL);
-	while (environ[i])
-	{
-		if (ft_strncmp(environ[i], "PATH=", 5) == 0)
-			path = ft_split(environ[i] + 5, ':');
-		i++;
-	}
-	i = 0;
-	while (path[i])
-	{
-		testpath = ft_strjoin(ft_strjoin(path[i], "/"), cmd);
-		if (access(testpath, F_OK) != 0)
-		{
-			free(path);
-			return (testpath);
-		}
-		free(testpath);
-		i++;
-	}
-	free(path);
-	return (NULL);
 }
 
-int	child_process(int pipefd[], char *cmd1, char *file1)
+int	child_process(int pipefd[], char *cmd1, char *file1, char *envp[])
 {
 	int		fd;
 	char	*cmdpath;
 	char	**cmd;
 
+	close(pipefd[0]);
 	cmdpath = ft_path(cmd1);
 	cmd = ft_split(cmd1, ' ');
 	fd = open(file1, O_RDONLY);
@@ -65,17 +39,19 @@ int	child_process(int pipefd[], char *cmd1, char *file1)
 	close(fd);
 	if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 		ft_error("Error redirecting standard output\n");
-	execve(cmdpath, cmd, NULL);
+	if (execve(cmdpath, cmd, envp) == -1)
+		ft_error("Error executing command\n");
 	ft_error("execve");
 	exit(0);
 }
 
-int	parent_process(int pipefd[], char *cmd2, char *file2)
+int	parent_process(int pipefd[], char *cmd2, char *file2, char *envp[])
 {
 	int		fd;
 	char	*cmdpath;
 	char	**cmd;
 
+	close(pipefd[1]);
 	cmdpath = ft_path(cmd2);
 	cmd = ft_split(cmd2, ' ');
 	fd = open(file2, O_WRONLY | O_TRUNC | O_CREAT, 0777);
@@ -86,11 +62,12 @@ int	parent_process(int pipefd[], char *cmd2, char *file2)
 	close(fd);
 	if (dup2(pipefd[0], STDIN_FILENO) == -1)
 		ft_error("Error redirecting standard input\n");
-	execve(cmdpath, cmd, NULL);
+	if (execve(cmdpath, cmd, envp) == -1)
+		ft_error("Error executing command\n");
 	exit(0);
 }
 
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	int		pipefd[2];
 	pid_t	process_id;
@@ -103,15 +80,11 @@ int	main(int argc, char *argv[])
 	if (process_id == -1)
 		ft_error("Fork\n");
 	if (process_id == 0)
-	{
-		close(pipefd[0]);
-		child_process(pipefd, argv[2], argv[1]);
-	}
+		child_process(pipefd, argv[2], argv[1], envp);
 	else
 	{
 		wait(NULL);
-		close(pipefd[1]);
-		parent_process(pipefd, argv[3], argv[4]);
+		parent_process(pipefd, argv[3], argv[4], envp);
 	}
 	return (0);
 }
