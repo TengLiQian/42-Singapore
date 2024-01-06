@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:25:19 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/06 12:04:25 by lteng            ###   ########.fr       */
+/*   Updated: 2024/01/06 12:06:06 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_error(char *str)
 	exit(1);
 }
 
-char	*ft_path(char *cmd)
+char	*ft_path(char *cmd, char *envp[])
 {
 	char	**path;
 	char	*testpath;
@@ -26,12 +26,12 @@ char	*ft_path(char *cmd)
 
 	path = NULL;
 	i = 0;
-	if (environ == NULL)
+	if (envp == NULL)
 		return (NULL);
-	while (environ[i])
+	while (envp[i])
 	{
-		if (ft_strncmp(environ[i], "PATH=", 5) == 0)
-			path = ft_split(environ[i] + 5, ':');
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			path = ft_split(envp[i] + 5, ':');
 		i++;
 	}
 	i = 0;
@@ -58,7 +58,7 @@ int	child_process(int pipefd[], char *cmd1, char *file1, char *envp[])
 
 	close(pipefd[0]);
 	cmd = ft_split(cmd1, ' ');
-	cmdpath = ft_path(cmd[0]);
+	cmdpath = ft_path(cmd[0], envp);
 	fd = open(file1, O_RDONLY);
 	if (fd == -1)
 		ft_error("Error opening file child");
@@ -79,11 +79,10 @@ int	parent_process(int pipefd[], char *cmd2, char *file2, char *envp[])
 
 	close(pipefd[1]);
 	cmd = ft_split(cmd2, ' ');
-	cmdpath = ft_path(cmd[0]);
+	cmdpath = ft_path(cmd[0], envp);
 	fd = open(file2, O_WRONLY | O_TRUNC | O_CREAT, 0777);
 	if (fd == -1)
 		ft_error("Error opening file parent");
-	printf("Parent: %i\n", fd);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 	if (dup2(pipefd[0], STDIN_FILENO) == -1)
