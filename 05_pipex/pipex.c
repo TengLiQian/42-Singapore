@@ -6,7 +6,7 @@
 /*   By: lteng <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 16:25:19 by lteng             #+#    #+#             */
-/*   Updated: 2024/01/06 12:03:17 by lteng            ###   ########.fr       */
+/*   Updated: 2024/01/06 12:03:53 by lteng            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	child_process(int pipefd[], char *cmd1, char *file1, char *envp[])
 	close(fd);
 	if (dup2(pipefd[1], STDOUT_FILENO) == -1)
 		ft_error("Error redirecting standard output\n");
-	if (execve(cmdpath, cmd, NULL) == -1);
+	if (execve(cmdpath, cmd, envp) == -1);
 		ft_error("Error executing command1\n");
 	exit(0);
 }
@@ -88,7 +88,7 @@ int	parent_process(int pipefd[], char *cmd2, char *file2, char *envp[])
 	close(fd);
 	if (dup2(pipefd[0], STDIN_FILENO) == -1)
 		ft_error("Error redirecting standard input\n");
-	if (execve(cmdpath, cmd, NULL) == -1);
+	if (execve(cmdpath, cmd, envp) == -1);
 		ft_error("Error executing command2\n");
 	exit(0);
 }
